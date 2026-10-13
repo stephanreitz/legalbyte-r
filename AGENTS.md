@@ -22,7 +22,7 @@ The main domain concepts are:
 
 A Request may generate one or many Tasks.
 
-The domain is documented in `domain.md`.
+The domain is documented in `docs/domain.md`.
 
 ## Product Principles
 
@@ -104,11 +104,11 @@ Keep documentation concise and update it when the documented behavior or decisio
 
 Important project documentation includes:
 
-- `vision.md` — product vision.
-- `domain.md` — domain language and model.
-- `user-flows.md` — user flows.
-- `backlog.md` — product backlog.
-- `ADR-*.md` — architectural decisions.
+- `docs/vision.md` — product vision.
+- `docs/domain.md` — domain language and model.
+- `docs/user-flows.md` — user flows.
+- `docs/backlog.md` — product backlog.
+- `docs/ADR-*.md` — architectural decisions.
 
 ## Development Approach
 

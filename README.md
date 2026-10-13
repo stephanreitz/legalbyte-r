@@ -39,7 +39,7 @@ generate one or multiple Tasks, which may be fulfilled through Automations.
 The implementation used to fulfill a Request is an internal detail of the
 application.
 
-See [`domain.md`](domain.md) for more details.
+See [`domain.md`](docs/domain.md) for more details.
 
 ## Planned Stack
 
@@ -70,18 +70,18 @@ Testing, architecture, documentation, Docker, AWS, and CI/CD will be
 introduced incrementally as the project evolves.
 
 See [`AGENTS.md`](AGENTS.md) for the project's engineering principles and
-[`development-conventions.md`](development-conventions.md) for development
+[`development-conventions.md`](docs/development-conventions.md) for development
 conventions.
 
 ## Documentation
 
-- [`vision.md`](vision.md) — Product vision.
-- [`domain.md`](domain.md) — Domain language and model.
-- [`user-flows.md`](user-flows.md) — User flows.
-- [`backlog.md`](backlog.md) — Product backlog.
+- [`vision.md`](docs/vision.md) — Product vision.
+- [`domain.md`](docs/domain.md) — Domain language and model.
+- [`user-flows.md`](docs/user-flows.md) — User flows.
+- [`backlog.md`](docs/backlog.md) — Product backlog.
 - [`AGENTS.md`](AGENTS.md) — Engineering principles and project instructions.
-- [`development-conventions.md`](development-conventions.md) — Development conventions.
-- [`ADR-001.md`](ADR-001.md) — Architectural decision records.
+- [`development-conventions.md`](docs/development-conventions.md) — Development conventions.
+- [`ADR-001.md`](docs/ADR-001.md) — Architectural decision records.
 
 ## Development
 

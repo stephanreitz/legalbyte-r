@@ -9,7 +9,7 @@
 
 ## Documentation
 
-Documentation should follow the principles defined in `AGENTS.md`.
+Documentation should follow the principles defined in `../AGENTS.md`.
 
 Documentation is not required for every piece of code. Add documentation when it provides meaningful context, explains non-obvious behavior, or records an important decision.
 
