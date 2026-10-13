@@ -1,0 +1,40 @@
+# Registro de instalações e comandos usados no projeto.
+
+## Ativa o ambiente virtual Python (.venv) no terminal atual
+source .venv/bin/activate
+
+## Atualiza o pip para a versão mais recente
+python -m pip install --upgrade pip
+
+## Instala o Django e o Django REST Framework
+pip install django djangorestframework
+
+## Cria o projeto Django chamado config no diretório atual (o ponto)
+django-admin startproject config .
+
+## Cria o app users
+python manage.py startapp users
+
+## Verifica a configuração do Django em busca de problemas conhecidos
+python manage.py check
+
+## Instala o driver Python para o Django conversar com o PostgreSQL
+pip install psycopg
+
+## Instala o pytest e o plugin de integração com o Django
+pip install pytest pytest-django
+
+## Gera os arquivos de migration do app users (ainda não aplica no banco)
+python manage.py makemigrations users
+
+## Abre o cliente do PostgreSQL no localhost, autenticado como o usuário postgres
+psql -U postgres -h localhost
+
+## Aplica as migrations pendentes no banco de dados
+python manage.py migrate
+
+## Executa a suíte de testes
+pytest
+
+## Instala autenticação JWT para o Django REST Framework
+pip install djangorestframework-simplejwt
