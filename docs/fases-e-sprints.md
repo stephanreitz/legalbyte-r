@@ -268,7 +268,7 @@ Estabelecer a fundação do backend e sua arquitetura inicial.
 - [x] Estrutura de pastas
 - [x] Configurações
 - [x] Usuário
-- [ ] Autenticação JWT
+- [x] Autenticação JWT
 
 ### Progresso atual
 
