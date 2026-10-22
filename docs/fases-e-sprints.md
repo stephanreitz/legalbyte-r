@@ -288,8 +288,8 @@ Já foram implementados e testados:
 - Serializer de registro
 - View de registro
 - Rotas da API
-
-O próximo passo é concluir a autenticação JWT e seus testes.
+- Autenticação JWT
+- Testes de login, credenciais inválidas, campos obrigatórios e refresh
 
 ### Fora do escopo desta sprint
 
@@ -308,7 +308,7 @@ O próximo passo é concluir a autenticação JWT e seus testes.
 ## Sprint 2 — Upload de planilhas
 
 **Duração:** 2 semanas  
-**Status: in progress**
+**Status: concluída**
 
 ### Objetivo
 
@@ -316,10 +316,21 @@ Permitir que o sistema trabalhe com arquivos enviados pelo usuário.
 
 ### Entregáveis
 
-- [ ] Login
-- [ ] Upload
-- [ ] Armazenamento do arquivo
-- [ ] Listagem de uploads
+- [x] Login
+- [x] Upload
+- [x] Armazenamento do arquivo
+- [x] Listagem de uploads
+
+### Progresso atual
+
+Foram implementados e testados:
+
+- Upload autenticado de arquivos.
+- Armazenamento local em `media/uploads/`.
+- Associação da Request ao usuário autenticado.
+- Bloqueio de upload para usuários anônimos.
+- Listagem das Requests do usuário autenticado.
+- Isolamento das Requests entre usuários.
 
 ### Observação
 
@@ -334,6 +345,8 @@ Ainda não haverá processamento dos arquivos.
 ### Pergunta de entrevista
 
 > Como você trabalha com arquivos?
+> Em aplicações web, trato o arquivo como conteúdo armazenado fora do banco e mantenho no banco apenas seus metadados e caminho. Valido autenticação, formato e tamanho na entrada, uso `multipart/form-data` para o upload e isolo o storage da regra de negócio.
+> Também testo separadamente o registro no banco e o conteúdo físico armazenado. O storage pode começar localmente e ser substituído por um serviço como S3 sem alterar o domínio.
 
 ---
 
@@ -587,42 +600,29 @@ O objetivo é construir um produto real com a complexidade adequada para um dese
 
 # Status atual
 
-**Sprint atual: Sprint 1 — Fundação do projeto**
+**Sprint atual: Sprint 3 — Primeira feature real**
 
 ### Concluído
 
-- Sprint 0 inteira
-- Django
-- DRF
-- PostgreSQL
-- Estrutura inicial
-- Configurações
-- Custom User Model
-- E-mail como identificador
-- pytest
-- Testes do modelo
-- Endpoint de registro
-- Serializer
-- View
-- URLs
-- Testes existentes passando
+- Sprint 0 — Descoberta e planejamento
+- Sprint 1 — Fundação do backend e autenticação JWT
+- Sprint 2 — Upload, armazenamento e listagem de arquivos
+- Testes automatizados das funcionalidades implementadas
 
 ### Próximo passo
 
-**Concluir autenticação JWT e seus testes.**
+**Implementar o Filtro de Publicações com processamento síncrono, sem Celery e sem Redis.**
 
 ### Depois
 
-1. Sprint 2 — Upload de planilhas
-2. Sprint 3 — Filtro de Publicações
-3. Sprint 4 — Testes
-4. Sprint 5 — Docker
-5. Sprint 6 — Refatoração
-6. Sprint 7 — Deploy
-7. Sprint 8 — GitHub Actions
-8. Sprint 9 — Deploy automático
-9. Sprint 10 — Performance
-10. Sprint 11 — Próxima feature
+1. Sprint 4 — Testes
+2. Sprint 5 — Docker
+3. Sprint 6 — Refatoração
+4. Sprint 7 — Deploy
+5. Sprint 8 — GitHub Actions
+6. Sprint 9 — Deploy automático
+7. Sprint 10 — Performance
+8. Sprint 11 — Próxima feature
 
 ---
 

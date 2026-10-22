@@ -1,10 +1,10 @@
 MVP
 
-[ ] Login
+[x] Login
 [ ] Dashboard
 [ ] Listagem de automações
 [ ] Filtro de Publicações
-[ ] Upload de arquivo
+[x] Upload de arquivo
 [ ] Download do resultado
 [ ] Histórico de solicitações
 

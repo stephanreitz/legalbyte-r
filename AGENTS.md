@@ -116,6 +116,8 @@ The project is developed incrementally.
 
 Each Sprint should deliver meaningful progress toward the product while introducing or applying engineering practices that are relevant to the current stage of development.
 
+When a Sprint is completed, update `docs/fases-e-sprints.md` and answer its interview question based on what was learned and implemented.
+
 Avoid implementing functionality or infrastructure before it is needed.
 
 When requirements change, prefer updating the existing implementation and documentation rather than introducing parallel solutions.
