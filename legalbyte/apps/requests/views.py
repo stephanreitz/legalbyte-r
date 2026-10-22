@@ -1,17 +1,29 @@
 # generics provides ready-made API views; permissions controls access.
 from rest_framework import generics, permissions
-# The serializer validates input and creates the Request model instance.
+
+# The Request model is used to query the authenticated user's Requests.
+from apps.requests.models import Request
+
+# The serializer validates input and converts Request objects into API data.
 from apps.requests.serializers import RequestSerializer
 
-# CreateAPIView implements the POST flow for creating one Request.
-class RequestCreateView(generics.CreateAPIView):
-    # Use RequestSerializer to validate the upload and serialize the response.
+# ListCreateAPIView handles GET for listing and POST for creation.
+class RequestListCreateView(generics.ListCreateAPIView):
+
+    # Use RequestSerializer for both input validation and response serialization.
     serializer_class = RequestSerializer
-    # Reject requests without a valid authenticated user, including JWT clients.
+
+    # Require a valid authenticated user for both GET and POST.
     permission_classes = [permissions.IsAuthenticated]
 
-    # CreateAPIView calls this hook after serializer validation succeeds.
+    # ListCreateAPIView calls this method when handling a GET request.
+    def get_queryset(self):
+
+        # Return only Requests owned by the authenticated user.
+        return Request.objects.filter(user=self.request.user)
+    
+    # ListCreateAPIView calls this hook after POST data is validated.
     def perform_create(self, serializer):
-        # Set ownership from the authenticated JWT user instead of trusting a
-        # user ID supplied in the request body.
+        
+        # Set ownership from the authenticated user instead of trusting input.
         serializer.save(user=self.request.user)
