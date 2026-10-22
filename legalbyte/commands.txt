@@ -38,3 +38,23 @@ pytest
 
 ## Instala autenticação JWT para o Django REST Framework
 pip install djangorestframework-simplejwt
+
+## Criar o app (em legalbyte/), gerando as pastas models, views, admin, migrations:
+python manage.py startapp requests apps/requests
+
+## Intala variavel de ambiente
+pip install python-dotenv
+
+## Abre o psql usando as configurações do Django (ensina SQL e mostra a estrutura real do banco)
+python manage.py dbshell
+/dt ## Listar tabelas
+\d requests_request ## Ver a estrutura da tabela de Requests
+SELECT * FROM requests_request; ## Listar os dados
+SELECT id, email FROM users_user; ## Ver usuários
+
+## shell do Django (ensina o ORM do Django)
+python manage.py shell
+from apps.requests.models import Request
+Request.objects.all()
+Request.objects.values("id", "user_id", "input_file", "created_at")
+exit()

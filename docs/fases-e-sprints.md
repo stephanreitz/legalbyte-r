@@ -248,13 +248,16 @@ Como iniciar um projeto profissional.
 ### Pergunta de entrevista
 
 > Como você planeja um software antes de começar?
+> Começo pelo problema, não pela stack. Quero saber quem usa, o que precisa ser verdadeiro no primeiro entregável e o que deliberadamente fica de fora. Isso vira visão, linguagem de domínio, fluxos principais e um backlog pequeno.
+> Só então um plano incremental: fatias que dão valor sozinhas, na ordem de risco. Decisões que mudam o modelo (o que é a entidade central, o que o usuário realmente faz) eu registro, para não perder o “porquê”.
+> Não desenho a arquitetura final no dia zero. Infra, filas e camadas extra entram quando um requisito real aparecer. Planejar, para mim, é reduzir incerteza o suficiente para começar a construir com segurança — não antecipar os próximos dois anos.
 
 ---
 
 ## Sprint 1 — Fundação do projeto
 
 **Duração:** 2 semanas  
-**Status: em andamento**
+**Status: concluída**
 
 ### Objetivo
 
@@ -298,13 +301,14 @@ O próximo passo é concluir a autenticação JWT e seus testes.
 ### Pergunta de entrevista
 
 > Como você organiza um backend?
-
----
+> Pelo domínio, não por tecnologia. Cada área de negócio vira um módulo (users, depois o que o produto exigir). Configuração, rotas e settings ficam à parte. Testes fora do código de produção, agrupados por feature.
+> A estrutura inicial é a mais simples que atende o requisito atual: modelo, API, autenticação, banco. Uso bibliotecas maduras no lugar de reinventar (por exemplo JWT). Cada fatia nasce com teste; o teste descreve o contrato antes da implementação.
+> Quando a lógica cresce ou as responsabilidades se misturam, extraio um service ou uma camada a mais. Não organizo o backend para um sistema hipotético de escala — organizo para o que existe hoje, de um jeito que ainda dá para evoluir sem reescrever tudo.
 
 ## Sprint 2 — Upload de planilhas
 
 **Duração:** 2 semanas  
-**Status: não iniciada**
+**Status: in progress**
 
 ### Objetivo
 
@@ -619,3 +623,27 @@ O objetivo é construir um produto real com a complexidade adequada para um dese
 8. Sprint 9 — Deploy automático
 9. Sprint 10 — Performance
 10. Sprint 11 — Próxima feature
+
+---
+
+## Sprint 12 — Refinamentos e segurança
+
+**Status: não iniciada**
+
+### Objetivo
+
+Verificar a necessidade dos pontos listados a baixo.
+Entender e estudar o que cada uma significa e suas importância.
+Sendo realmente necessário, implementar da forma mais simples e adequada possível.
+Não basta fazer, é necessário entender porque fazer e como fazer.
+
+### Ponto a verificar
+
+- [ ] Identificar gargalos
+- [ ] Índices
+- [ ] Cache
+- [ ] Otimização
+
+### Pergunta de entrevista
+
+> Essas questões respondem qual pergunta? Segurança? O que mais?

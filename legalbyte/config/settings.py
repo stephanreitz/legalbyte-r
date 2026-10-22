@@ -12,10 +12,14 @@ https://docs.djangoproject.com/en/6.1/ref/settings/
 
 from pathlib import Path
 import os
+from dotenv import load_dotenv
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+# Load local environment variables, such as POSTGRES_PASSWORD, from the .env
+# file stored at the repository root, one directory above BASE_DIR.
+load_dotenv(BASE_DIR.parent / ".env")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/6.1/howto/deployment/checklist/
@@ -41,6 +45,8 @@ INSTALLED_APPS = [
     'apps.users',
     'rest_framework',
     'rest_framework_simplejwt',
+    # Register the requests app so Django loads its models and migrations.
+    'apps.requests',
 ]
 
 MIDDLEWARE = [
@@ -143,7 +149,13 @@ MAILERS = {
 AUTH_USER_MODEL = "users.User"
 
 REST_FRAMEWORK = {
+    # Authenticate protected API requests using a JWT Bearer access token.
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     )
 }
+
+# MEDIA_URL is the URL prefix used when referring to uploaded files.
+MEDIA_URL = "media/"
+# MEDIA_ROOT is the directory where FileField stores uploaded file contents.
+MEDIA_ROOT = BASE_DIR / "media"
