@@ -20,7 +20,7 @@ class RequestSerializer(serializers.ModelSerializer):
 
         # The user field is intentionally omitted because ownership comes from
         # the authenticated user, not from client input.
-        fields = ("id", "input_file", "criteria", "created_at")
+        fields = ("id", "input_file", "criteria", "output_file", "created_at")
 
         # Django creates these values; API clients cannot provide or change them.
-        read_only_fields = ("id", "created_at")
+        read_only_fields = ("id", "output_file", "created_at")

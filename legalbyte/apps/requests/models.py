@@ -20,5 +20,13 @@ class Request(models.Model):
     # The list callable creates a new empty list for each Request.
     criteria = models.JSONField(default=list)
 
+    # Store the generated spreadsheet under MEDIA_ROOT/outputs/.
+    # Existing Requests have an empty path because they have no output.
+    output_file = models.FileField(
+        upload_to="outputs/",
+        blank=True,
+        default="",
+    )
+
     # Let Django record the creation timestamp when the row is first inserted.
     created_at = models.DateTimeField(auto_now_add=True)
