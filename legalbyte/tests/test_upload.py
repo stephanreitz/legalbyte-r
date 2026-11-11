@@ -114,6 +114,32 @@ def test_authenticated_user_can_upload_spreadsheet(settings, tmp_path):
     # Confirm that the processing  parameters were stored with the Request
     assert created_request.criteria == criteria
 
+    # Confirm that synchronous processing generated an output file.
+    assert created_request.output_file.name.startswith("outputs/")
+    assert created_request.output_file.name.endswith(".xlsx")
+
+    # Confirm that the output was physically stored.
+    assert created_request.output_file.storage.exists(
+        created_request.output_file.name
+    )
+
+    # Open the generated output and verify its analysis.
+    with created_request.output_file.open("rb") as stored_output:
+        output_workbook = load_workbook(stored_output)
+        output_sheet = output_workbook.active
+        rows = list(output_sheet.iter_rows(values_only=True))
+
+    assert rows[0][-2:] == (
+        "Retorno robô",
+        "Critério localizado",
+    )
+
+    assert rows[1][-2:] == (
+        "Desconsiderar publicação",
+        "Pregão eletrônico",
+    )
+
+    output_workbook.close()
 
 # Allow the test to query the isolated test database.
 @pytest.mark.django_db
