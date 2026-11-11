@@ -1,13 +1,23 @@
 # pytest provides the Django database marker used by this test.
 import pytest
+
 # SimpleUploadedFile creates an in-memory file without reading the local disk.
 from django.core.files.uploadedfile import SimpleUploadedFile
+
 # APIClient simulates HTTP requests to the Django REST Framework API.
 from rest_framework.test import APIClient
+
 # A real user is required to obtain the JWT used by the upload request.
 from apps.users.models import User
+
 # The Request model lets the test confirm that rejected uploads are not saved.
 from apps.requests.models import Request
+
+# BytesIO creates the XLSX inpout entirely in memory.
+from io import BytesIO
+
+# Workbook creates a valid XLSX file and load_workbook reads the result.
+from openpyxl import Workbook, load_workbook
 
 # Allow this test to use pytest-django's isolated test database.
 @pytest.mark.django_db
@@ -33,18 +43,50 @@ def test_authenticated_user_can_upload_spreadsheet(settings, tmp_path):
     # Add the access token to the Authorization header of subsequent requests.
     client.credentials(HTTP_AUTHORIZATION=f"Bearer {login.data['access']}")
 
-    # Build a fake spreadsheet in memory. Sprint 2 tests file transport and
-    # storage, not whether the bytes form a valid XLSX workbook.
+    # Create a valid input workbook using the spreadsheet contract.
+    input_workbook = Workbook()
+    input_sheet = input_workbook.active
+    input_sheet.title = "TRATADAS"
+
+    input_sheet.append([
+        "Nº do Processo",
+        "Data de Cadastro",
+        "Data de Disponibilização",
+        "Data de Publicação",
+        "Publicação",    
+    ])
+
+    input_sheet.append([
+        "0001",
+        "01/01/2026",
+        "02/01/2026",
+        "03/01/2026",
+        "Foi publicado um aviso de pregão eletrônico.",
+    ])    
+
+    # Serialize the workbook into binary XLSX content.
+    input_content = BytesIO()
+    input_workbook.save(input_content)
+    uploaded_content = input_content.getvalue()
+    input_workbook.close()
+
     spreadsheet = SimpleUploadedFile(
         "planilha.xlsx",
-        b"fake-xlsx-content",
+        uploaded_content,
         content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
+
+    # These criteria simulate the values submitted by the frontend.
+    criteria = [
+        "Licitação",
+        "Pregão eletrônico",
+]
 
     # Send the file as multipart/form-data, the standard HTTP upload format.
     response = client.post(
         "/api/requests/",
-        {"input_file": spreadsheet},
+        {"input_file": spreadsheet,
+         "criteria": criteria},
         format="multipart",
     )
 
@@ -64,10 +106,14 @@ def test_authenticated_user_can_upload_spreadsheet(settings, tmp_path):
     assert created_request.input_file.storage.exists(
         created_request.input_file.name
     )
-    
+
     # Confirm that the stored file contains the uploaded bytes.
     with created_request.input_file.open("rb") as stored_file:
-        assert stored_file.read() == b"fake-xlsx-content"
+        assert stored_file.read() == uploaded_content
+
+    # Confirm that the processing  parameters were stored with the Request
+    assert created_request.criteria == criteria
+
 
 # Allow the test to query the isolated test database.
 @pytest.mark.django_db
