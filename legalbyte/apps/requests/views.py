@@ -16,6 +16,15 @@ from django.core.files.base import ContentFile
 # The processing service transforms the input XLSX into to the analyzed output.
 from apps.requests.services import process_publications_spreadsheet
 
+# FileResponse streams a file as an HTTP response.
+from django.http import FileResponse
+
+# get_object_or_404 returns a resource os an HTTP 404 response.
+from django.shortcuts import get_object_or_404
+
+# APIView provides explicit HTTP method handlers such as get().
+from rest_framework.views import APIView
+
 
 # ListCreateAPIView handles GET for listing and POST for creation.
 class RequestListCreateView(generics.ListCreateAPIView):
@@ -61,9 +70,35 @@ class RequestListCreateView(generics.ListCreateAPIView):
         # openpyxl moved the input cursor while reading the workbook.
         # Return it to the beginning before Django stores the original file.
         input_file.seek(0)
-        
+
         # Save the Request and both files only after processing succeeds.
         serializer.save(
             user=self.request.user,
             output_file=output_content,
         )
+
+# This view streams a processed output file to its owner.
+class RequestOutputDownloadView(APIView):
+
+    # Reject clients without a valid authenticated user.
+    permission_classes = [permissions.IsAuthenticated]
+
+    # Handle GET /api/requests/<id>/download/.
+    def get(self, request, request_id):
+
+        # Filter by both ID and owner so users cannot access another user's file.
+        publication_request = get_object_or_404(
+            Request,
+            id=request_id,
+            user=request.user,
+        )
+
+        # Open the stored output in binary read mode.
+        output_file = publication_request.output_file.open("rb")
+
+        # Stream the file and instruct the client to download it as an attachment.
+        return FileResponse(
+            output_file,
+            as_attachment=True,
+            filename=Path(publication_request.output_file.name).name,
+        ) 
