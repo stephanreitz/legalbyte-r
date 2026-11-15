@@ -76,6 +76,9 @@ def test_authenticated_user_can_upload_spreadsheet(settings, tmp_path):
         content_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     )
 
+    # This value simulates the sheet selected by the frontend.
+    sheet_name = "TRATADAS"
+
     # These criteria simulate the values submitted by the frontend.
     criteria = [
         "Licitação",
@@ -86,7 +89,9 @@ def test_authenticated_user_can_upload_spreadsheet(settings, tmp_path):
     response = client.post(
         "/api/requests/",
         {"input_file": spreadsheet,
-         "criteria": criteria},
+         "criteria": criteria,
+         "sheet_name": sheet_name
+         },
         format="multipart",
     )
 
@@ -113,6 +118,9 @@ def test_authenticated_user_can_upload_spreadsheet(settings, tmp_path):
 
     # Confirm that the processing  parameters were stored with the Request
     assert created_request.criteria == criteria
+
+    # Confirm that theselected sheet was stored with Request.
+    assert created_request.sheet_name == sheet_name
 
     # Confirm that synchronous processing generated an output file.
     assert created_request.output_file.name.startswith("outputs/")

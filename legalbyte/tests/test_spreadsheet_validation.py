@@ -61,6 +61,7 @@ def test_rejects_file_that_is_not_a_valid_xlsx(settings, tmp_path):
         {
             "input_file": invalid_file,
             "criteria": ["Licitação"],
+            "sheet_name": "TRATADAS",
         },
         format="multipart",
     )
@@ -81,6 +82,7 @@ def test_rejects_spreadsheet_without_treated_sheet(settings, tmp_path):
         {
             "input_file": spreadsheet,
             "criteria": ["Licitação"],
+            "sheet_name": "TRATADAS",
         },
         format="multipart",
     )
@@ -101,6 +103,7 @@ def test_rejects_spreadsheet_without_publication_column(settings, tmp_path):
         {
             "input_file": spreadsheet,
             "criteria": ["Licitação"],
+            "sheet_name": "TRATADAS",
         },
         format="multipart",
     )

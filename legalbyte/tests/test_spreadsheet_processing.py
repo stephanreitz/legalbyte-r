@@ -14,7 +14,7 @@ def test_processes_treated_sheet_and_adds_analysis_columns():
 
     # The legacy contract requires a sheet named TRATADAS.
     input_sheet = input_workbook.active
-    input_sheet.title = "TRATADAS"
+    input_sheet.title = "PUBLICAÇÕES"
 
     # Add the columns expected in the input spreadsheet.
     input_sheet.append([
@@ -56,6 +56,7 @@ def test_processes_treated_sheet_and_adds_analysis_columns():
     output_file = process_publications_spreadsheet(
         input_file,
         criteria,
+        sheet_name="PUBLICAÇÕES",
     )
 
     # Open the generated workbook to verify its contents.
