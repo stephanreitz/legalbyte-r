@@ -14,7 +14,7 @@ from pathlib import Path
 from django.core.files.base import ContentFile
 
 # The processing service transforms the input XLSX into to the analyzed output.
-from apps.requests.services import process_publications_spreadsheet
+from apps.requests.services import (InvalidSpreadsheetError, process_publications_spreadsheet)
 
 # FileResponse streams a file as an HTTP response.
 from django.http import FileResponse
@@ -24,6 +24,9 @@ from django.shortcuts import get_object_or_404
 
 # APIView provides explicit HTTP method handlers such as get().
 from rest_framework.views import APIView
+
+# ValidationError converts invalid client input into an HTTP 400 response.
+from rest_framework.exceptions import ValidationError
 
 
 # ListCreateAPIView handles GET for listing and POST for creation.
@@ -48,11 +51,16 @@ class RequestListCreateView(generics.ListCreateAPIView):
         input_file = serializer.validated_data["input_file"]
         criteria = serializer.validated_data["criteria"]
 
-        # Process the spreadsheet synchronously before saving the Request.
-        processed_file = process_publications_spreadsheet(
-            input_file,
-            criteria,
-        )
+        # Convert spreadsheet contract erros into an API validation response.
+        try: 
+            processed_file = process_publications_spreadsheet(
+                input_file,
+                criteria,
+            )
+        except InvalidSpreadsheetError as error:
+            raise ValidationError(
+                {"input_file": [str(error)]}
+            ) from error
 
         # Build the output filename from the original uploaded filename.
         input_name = Path(input_file.name)

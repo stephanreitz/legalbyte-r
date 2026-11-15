@@ -10,6 +10,13 @@ from io import BytesIO
 # Workbook creates XLSX files and load_workbook reads them.
 from openpyxl import Workbook, load_workbook
 
+# BadZipFile is raised when the uploaded content is not a valid XLSX archive.
+from zipfile import BadZipFile
+
+# InvalidFileException is raised for unsupported spreadsheet formats.
+from openpyxl.utils.exceptions import InvalidFileException
+
+
 def normalize_text(value):
 
     # Separate base characters from accents.
@@ -69,8 +76,21 @@ def find_exclusion_criterion(publication, criteria):
 
 def process_publications_spreadsheet(input_file, criteria):
 
-    # Open the workbook received from the user.
-    input_workbook = load_workbook(input_file)
+    # Convert low-level XLSX erros into an applications-specific error.
+    try:
+        # Open the workbook received from the user.
+        input_workbook = load_workbook(input_file)
+    except (BadZipFile, InvalidFileException) as error:
+        raise InvalidSpreadsheetError(
+            "The uploaded file is not a valid XLSX spreadsheet."
+        ) from error
+
+    # The spreadsheet contratact requires a sheet named "TRATADAS".
+    if "TRATADAS" not in input_workbook.sheetnames:
+        input_workbook.close()
+        raise InvalidSpreadsheetError(
+            'The spreadsheet must contain a sheet named "TRATADAS".'
+        )
 
     # The legacy spreadsheet contract uses the TRATADAS sheet.
     input_sheet = input_workbook["TRATADAS"]
@@ -80,6 +100,14 @@ def process_publications_spreadsheet(input_file, criteria):
         cell.value
         for cell in input_sheet[1]
     ]
+
+    # The processing rule requires a "Publicações" column
+    if "Publicação" not in input_headers:
+        input_workbook.close()
+        raise InvalidSpreadsheetError(
+            'The "TRATADAS" sheet must contain a "Publicação" column.'
+        )
+    
 
     # Locate the Publicação column without relying on a fixed position.
     publication_index = input_headers.index("Publicação")
@@ -138,3 +166,7 @@ def process_publications_spreadsheet(input_file, criteria):
     output_workbook.close()
 
     return output_file
+
+class InvalidSpreadsheetError(ValueError):
+    """Raised when an input spreadsheet does not follow the required contract."""
+
