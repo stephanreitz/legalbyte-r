@@ -352,7 +352,7 @@ Ainda não haverá processamento dos arquivos.
 
 ## Sprint 3 — Primeira feature real
 
-**Status: não iniciada**
+**Status: concluída**
 
 Esta é a sprint mais importante do MVP.
 
@@ -374,15 +374,33 @@ Download
 
 ### Estratégia
 
-- [ ] Processamento síncrono
-- [ ] Sem Celery
-- [ ] Sem Redis
+- [x] Processamento síncrono
+- [x] Sem Celery
+- [x] Sem Redis
 
 A primeira implementação deve ser simples e funcional.
+
+### Progresso atual
+
+Foram implementados e testados:
+
+- Critérios de exclusão e aba da planilha informados pelo frontend.
+- Normalização e classificação das publicações.
+- Tratamento da diferença entre `licitação` e `solicitação`.
+- Leitura da aba selecionada e geração da planilha analisada.
+- Processamento síncrono durante a criação da Request.
+- Armazenamento dos arquivos de entrada e saída.
+- Download autenticado e restrito ao proprietário da Request.
+- Rejeição de arquivos XLSX inválidos ou incompatíveis com o contrato.
+- Management command para excluir arquivos físicos após três dias, preservando a Request e os caminhos no banco.
+- Ciclos TDD registrados em commits Red e Green.
 
 ### Pergunta de entrevista
 
 > Como você implementou essa regra de negócio?
+> Primeiro transformei o comportamento legado em testes pequenos e independentes da infraestrutura. Separei a normalização e a classificação das publicações em funções puras, incluindo os casos especiais de `licitação` e `solicitação` e critérios sobrepostos.
+> Depois implementei um service que lê a aba e os critérios informados pelo frontend, percorre as publicações com `openpyxl` e gera uma nova planilha com o resultado e o critério localizado. A view apenas coordena autenticação, validação, processamento síncrono e armazenamento, mantendo a regra de negócio fora da camada HTTP.
+> Também protegi o download por usuário, converti planilhas inválidas em respostas `400` e implementei retenção dos arquivos por management command. Cada comportamento foi desenvolvido com um commit Red para o teste falhando e um commit Green para a implementação mínima.
 
 ---
 
@@ -600,18 +618,19 @@ O objetivo é construir um produto real com a complexidade adequada para um dese
 
 # Status atual
 
-**Sprint atual: Sprint 3 — Primeira feature real**
+**Etapa atual: preparação para a Sprint 4**
 
 ### Concluído
 
 - Sprint 0 — Descoberta e planejamento
 - Sprint 1 — Fundação do backend e autenticação JWT
 - Sprint 2 — Upload, armazenamento e listagem de arquivos
+- Sprint 3 — Filtro de Publicações com processamento e download
 - Testes automatizados das funcionalidades implementadas
 
 ### Próximo passo
 
-**Implementar o Filtro de Publicações com processamento síncrono, sem Celery e sem Redis.**
+**Concluir os itens de segurança, dependências, titularidade e planejamento definidos para a transição antes da Sprint 4.**
 
 ### Depois
 

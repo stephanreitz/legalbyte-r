@@ -3,9 +3,9 @@ MVP
 [x] Login
 [ ] Dashboard
 [ ] Listagem de automações
-[ ] Filtro de Publicações
+[x] Filtro de Publicações
 [x] Upload de arquivo
-[ ] Download do resultado
+[x] Download do resultado
 [ ] Histórico de solicitações
 
 v1.1
