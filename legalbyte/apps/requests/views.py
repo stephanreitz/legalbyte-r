@@ -17,7 +17,7 @@ from django.core.files.base import ContentFile
 from apps.requests.services import (InvalidSpreadsheetError, process_publications_spreadsheet)
 
 # FileResponse streams a file as an HTTP response.
-from django.http import FileResponse
+from django.http import (FileResponse, Http404)
 
 # get_object_or_404 returns a resource os an HTTP 404 response.
 from django.shortcuts import get_object_or_404
@@ -102,6 +102,13 @@ class RequestOutputDownloadView(APIView):
             id=request_id,
             user=request.user,
         )
+
+        output_name = publication_request.output_file.name
+        output_storage = publication_request.output_file.storage
+
+        # The database path may remain after the retention command deletes the physical file.
+        if not output_name or not output_storage.exists(output_name):
+            raise Http404("The output file is no longer available.")
 
         # Open the stored output in binary read mode.
         output_file = publication_request.output_file.open("rb")
