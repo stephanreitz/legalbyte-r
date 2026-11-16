@@ -20,6 +20,13 @@ class Request(models.Model):
     # The list callable creates a new empty list for each Request.
     criteria = models.JSONField(default=list)
 
+    # Store the worksheet selected by the frontend.
+    # Existing Requests used the legacy TRATADAS sheet.
+    sheet_name = models.CharField(
+        max_length=31,
+        default="TRATADAS"
+    )
+
     # Store the generated spreadsheet under MEDIA_ROOT/outputs/.
     # Existing Requests have an empty path because they have no output.
     output_file = models.FileField(

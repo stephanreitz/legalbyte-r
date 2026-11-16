@@ -74,7 +74,7 @@ def find_exclusion_criterion(publication, criteria):
     # Return the last matching criterion, or None when nothing matched.
     return matched_criterion
 
-def process_publications_spreadsheet(input_file, criteria):
+def process_publications_spreadsheet(input_file, criteria, sheet_name):
 
     # Convert low-level XLSX erros into an applications-specific error.
     try:
@@ -85,15 +85,15 @@ def process_publications_spreadsheet(input_file, criteria):
             "The uploaded file is not a valid XLSX spreadsheet."
         ) from error
 
-    # The spreadsheet contratact requires a sheet named "TRATADAS".
-    if "TRATADAS" not in input_workbook.sheetnames:
+    # The selected worksheet must exist in the uploaded workbook.
+    if sheet_name not in input_workbook.sheetnames:
         input_workbook.close()
         raise InvalidSpreadsheetError(
-            'The spreadsheet must contain a sheet named "TRATADAS".'
+            f'The spreadsheet must contain the selected sheet "{sheet_name}".'
         )
 
     # The legacy spreadsheet contract uses the TRATADAS sheet.
-    input_sheet = input_workbook["TRATADAS"]
+    input_sheet = input_workbook[sheet_name]
 
     # Read the input column names from the first row.
     input_headers = [
@@ -105,7 +105,7 @@ def process_publications_spreadsheet(input_file, criteria):
     if "Publicação" not in input_headers:
         input_workbook.close()
         raise InvalidSpreadsheetError(
-            'The "TRATADAS" sheet must contain a "Publicação" column.'
+            f'The "{sheet_name}" sheet must contain a "Publicação" column.'
         )
     
 

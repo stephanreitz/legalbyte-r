@@ -13,6 +13,12 @@ class RequestSerializer(serializers.ModelSerializer):
         allow_empty=False,
     )
 
+    # Require the frontend to identify which worksheet must be processed.
+    sheet_name = serializers.CharField(
+        max_length=31,
+        allow_blank=False,
+    )
+
     # Meta configures which model and fields ModelSerializer should use.
     class Meta:
 
@@ -20,7 +26,18 @@ class RequestSerializer(serializers.ModelSerializer):
 
         # The user field is intentionally omitted because ownership comes from
         # the authenticated user, not from client input.
-        fields = ("id", "input_file", "criteria", "output_file", "created_at")
+        fields = (
+            "id", 
+            "input_file", 
+            "criteria", 
+            "sheet_name", 
+            "output_file", 
+            "created_at"
+        )
 
         # Django creates these values; API clients cannot provide or change them.
-        read_only_fields = ("id", "output_file", "created_at")
+        read_only_fields = (
+            "id", 
+            "output_file", 
+            "created_at"
+        )

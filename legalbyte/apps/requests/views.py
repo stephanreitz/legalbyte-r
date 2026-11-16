@@ -50,12 +50,14 @@ class RequestListCreateView(generics.ListCreateAPIView):
         # Read the validated file and criteria without trusting raw request data.
         input_file = serializer.validated_data["input_file"]
         criteria = serializer.validated_data["criteria"]
+        sheet_name = serializer.validated_data["sheet_name"]
 
         # Convert spreadsheet contract erros into an API validation response.
         try: 
             processed_file = process_publications_spreadsheet(
                 input_file,
                 criteria,
+                sheet_name,
             )
         except InvalidSpreadsheetError as error:
             raise ValidationError(
