@@ -14,4 +14,8 @@ media/
 # Secrets
 .env
 .env.*
+!.env.example
 SENHAS*
+
+# Directorys
+/publicacoes_irrelevantes/
