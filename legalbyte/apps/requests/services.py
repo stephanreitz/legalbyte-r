@@ -92,7 +92,7 @@ def process_publications_spreadsheet(input_file, criteria, sheet_name):
             f'The spreadsheet must contain the selected sheet "{sheet_name}".'
         )
 
-    # The legacy spreadsheet contract uses the TRATADAS sheet.
+    # Use the worksheet selected by the user.
     input_sheet = input_workbook[sheet_name]
 
     # Read the input column names from the first row.

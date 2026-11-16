@@ -1,33 +1,37 @@
 # Domain
 
-Este documento define a linguagem e o modelo de domínio da LegalByte.
+This document defines LegalByte's domain language and model.
 
-Código, documentação e regras de negócio devem usar os mesmos termos. Quando uma funcionalidade introduzir um conceito de negócio novo, este documento deve ser atualizado.
-
----
-
-## Visão
-
-A LegalByte é uma plataforma de automação jurídica para escritórios de advocacia.
-
-O objetivo é reduzir o tempo gasto em tarefas operacionais e repetitivas, para que advogados e estagiários se concentrem em atividades que exigem análise jurídica.
-
-O modelo é centrado em Solicitações (Requests). O usuário não interage diretamente com automações. Ele solicita que a plataforma resolva um problema. A implementação usada para atender essa solicitação é um detalhe interno da aplicação.
+Code, documentation, and business rules must use the same terms. This document
+must be updated whenever a feature introduces a new business concept.
 
 ---
 
-## Princípios
+## Overview
 
-Toda nova funcionalidade deve:
+LegalByte is a legal automation platform for law firms.
 
-- Automatizar ou simplificar uma atividade recorrente do fluxo jurídico.
-- Reduzir tempo operacional e erros humanos.
-- Produzir um resultado claro e útil para o usuário.
-- Permanecer independente das demais automações sempre que possível.
+Its goal is to reduce time spent on repetitive operational tasks so that
+lawyers and interns can focus on work that requires legal analysis.
+
+The model is centered on Requests. Users do not interact directly with
+automations. They ask the platform to solve a problem, while the implementation
+used to fulfill that request remains an internal application detail.
 
 ---
 
-## Modelo conceitual
+## Principles
+
+Every new feature must:
+
+- Automate or simplify a recurring activity in a legal workflow.
+- Reduce operational time and human error.
+- Produce a clear and useful result for the user.
+- Remain independent from other automations whenever possible.
+
+---
+
+## Conceptual model
 
 ```text
 Office
@@ -45,93 +49,105 @@ Output
 
 ---
 
-## Glossário
+## Glossary
 
-### Office (Escritório)
+### Office
 
-Cliente da plataforma. Agrupa usuários e suas solicitações.
+A platform customer. It groups its users and their requests.
 
-Exemplos: Marchiori, Sachet, Barros & Dias Advogados; Escritório XPTO.
+Example: Law Firm A.
 
-### User (Usuário)
+### User
 
-Pessoa autorizada a usar a plataforma. Pertence a um único escritório e cria solicitações.
+A person authorized to use the platform. A User belongs to one Office and
+creates Requests.
 
-Perfis iniciais:
+Initial roles:
 
-- Advogado
-- Estagiário
+- Lawyer
+- Intern
 
-Outros papéis (Administrador, Gestor etc.) poderão existir no futuro.
+Other roles, such as Administrator and Manager, may be introduced later.
 
-### Request (Solicitação)
+### Request
 
-Intenção do usuário. Toda interação relevante começa com uma solicitação.
+A user's intent. Every relevant interaction starts with a Request.
 
-Exemplos: filtrar uma planilha; protocolar um lote de processos; buscar informações em documentos; gerar um relatório.
+Examples include filtering a spreadsheet, filing a batch of cases, searching
+documents, and generating a report.
 
-A Request é o Aggregate Root do domínio. Ela armazena parâmetros e entradas, acompanha o processamento, consolida resultados e apresenta o status geral ao usuário.
+A Request is the domain Aggregate Root. It stores parameters and inputs, tracks
+processing, consolidates results, and presents the overall status to the user.
 
-Status da Request:
+Request statuses:
 
-- Pendente
-- Em processamento
-- Concluída
-- Concluída parcialmente
-- Falhou
+- Pending
+- Processing
+- Completed
+- Partially completed
+- Failed
 
 ### Task
 
-Unidade de trabalho necessária para atender uma Request. Uma Request pode gerar uma, dezenas ou centenas de Tasks.
+A unit of work required to fulfill a Request. A Request may generate one,
+dozens, or hundreds of Tasks.
 
-Cada Task tem o próprio ciclo de vida e o próprio status. Os logs pertencem às Tasks, para informar o que foi executado, o que falhou e por quê.
+Each Task has its own lifecycle and status. Logs belong to Tasks and describe
+what was executed, what failed, and why.
 
-### Automation (Automação)
+### Automation
 
-Mecanismo capaz de executar uma Task. Não é o centro do domínio: é um dos mecanismos usados para atender uma Request.
+A mechanism capable of executing a Task. It is not the center of the domain,
+but one of the mechanisms used to fulfill a Request.
 
-Exemplos: Filtro de Publicações Irrelevantes; Protocolos Automatizados; Análise de Planilhas; Busca Inteligente em Documentos.
+Examples include Irrelevant Publication Filtering, Automated Court Filings,
+Spreadsheet Analysis, and Intelligent Document Search.
 
-Novos mecanismos podem surgir sem alterar o conceito central do sistema.
+New mechanisms may be introduced without changing the system's central concept.
 
 ### Input
 
-Dados fornecidos pelo usuário: arquivos (XLSX, CSV, PDF, DOCX) ou parâmetros informados na interface.
+Data provided by the user, such as files (XLSX, CSV, PDF, or DOCX) and
+parameters entered through the interface.
 
 ### Output
 
-Resultado produzido pela plataforma: planilha, PDF, relatório, mensagem ou arquivo compactado.
+The result produced by the platform, such as a spreadsheet, PDF, report,
+message, or compressed file.
 
-### Publicação
+### Publication
 
-Conceito específico da automação Filtro de Publicações Irrelevantes. Cada publicação é um registro da planilha enviada pelo usuário, classificado como relevante ou irrelevante segundo as regras da automação.
+A concept specific to the Irrelevant Publication Filtering automation. Each
+Publication is a record from the spreadsheet submitted by the user, classified
+as relevant or irrelevant according to the automation rules.
 
 ---
 
-## Fluxo principal
+## Main workflow
 
 ```text
 Office
   ↓
 User
   ↓
-Cria uma Request
+Creates a Request
   ↓
-Fornece Input
+Provides Input
   ↓
-A Request gera uma ou mais Tasks
+The Request generates one or more Tasks
   ↓
-Automations executam as Tasks
+Automations execute the Tasks
   ↓
-A Request consolida o Output
+The Request consolidates the Output
   ↓
-O usuário faz o download
+The user downloads the result
 ```
 
 ---
 
-## Fora do escopo
+## Out of scope
 
-A LegalByte não substitui o sistema de gestão (CRM/ERP) do escritório.
+LegalByte does not replace a law firm's management system (CRM/ERP).
 
-Atua como plataforma complementar de automações e poderá, no futuro, integrar-se a sistemas já existentes.
+It is a complementary automation platform that may integrate with existing
+systems in the future.

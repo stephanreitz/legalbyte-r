@@ -1,191 +1,135 @@
 # User Flows
 
-Este documento descreve os principais fluxos de utilização da plataforma LegalByte.
+This document describes LegalByte's main user flows.
 
-Seu objetivo é servir como referência para o desenvolvimento da interface, da API e das regras de negócio.
-
----
-
-# Fluxo 1 - Login
-
-## Objetivo
-
-Permitir que um usuário autenticado acesse as automações disponíveis na plataforma.
-
-## Fluxo
-
-Usuário informa email e senha.
-Clica em Entrar.
-Credenciais válidas → Dashboard.
-Credenciais inválidas → mensagem de erro.
-Campos obrigatórios.
+It serves as a reference for interface, API, and business rule development.
 
 ---
 
-# Fluxo 2 - Dashboard
+## Flow 1 — Login
 
-## Objetivo
+### Goal
 
-Apresentar todas as automações disponíveis para o usuário.
-As ferramentas disponíveis podem variar de acordo com o usuário.
+Allow an authenticated user to access the automations available on the
+platform.
 
-## Fluxo
+### Flow
 
-Após o login, o usuário é direcionado para a tela principal da LegalByte.
-A tela apresenta uma saudação ao usuário.
-A tela apresenta a lista de ferramentas disponíveis para aquele usuário.
-O usuário pode selecionar uma ferramenta para iniciar uma solicitação.
-
-Cada automação é representada por:
-
-- Nome
-- Descrição resumida
-- Ícone
-  ↓
-  Usuário seleciona a automação desejada
-  ↓
-  Sistema direciona para a tela específica daquela automação
+1. The user enters an email address and password.
+2. The user selects **Log in**.
+3. Valid credentials lead to the Dashboard.
+4. Invalid credentials produce an error message.
+5. Both fields are required.
 
 ---
 
-# Fluxo 3 - Executar uma Solicitação
+## Flow 2 — Dashboard
 
-## Objetivo
+### Goal
 
-Executar uma solicitação utilizando uma ferramenta da LegalByte.
+Present all automations available to the user. Availability may vary by user.
 
-## Fluxo
+### Flow
 
-Usuário seleciona uma ferramenta no Dashboard
-↓
-Sistema abre uma nova página específica da ferramenta
-↓
-Sistema apresenta:
-Nome da ferramenta
-Explicação sobre a finalidade da ferramenta
-Descrição do resultado esperado
-Passo a passo de como utilizar corretamente a ferramenta
-Inputs necessários para aquela ferramenta
-Opções específicas da ferramenta (checkboxes, seletores, etc.)
-Campo para upload de um ou mais arquivos
-Botão para iniciar a solicitação
-↓
-Usuário segue as instruções apresentadas
-↓
-Usuário seleciona as opções disponíveis
-↓
-Usuário envia os arquivos necessários
-↓
-Validações antes da execução
-O sistema valida:
-Se todos os campos obrigatórios foram preenchidos.
-Se todas as opções obrigatórias foram selecionadas.
-Se pelo menos um arquivo foi enviado, quando necessário.
-Se a quantidade de arquivos está dentro dos limites definidos pela ferramenta.
-Se os arquivos possuem formatos suportados pela ferramenta.
-Se os arquivos atendem aos requisitos específicos da ferramenta.
-Se os parâmetros informados são válidos e compatíveis entre si.
-Se o usuário possui permissão para utilizar a ferramenta.
-Se a solicitação está apta para ser processada.
-↓
-Dados válidos → solicitação é iniciada
-Dados inválidos → sistema informa os problemas encontrados e não inicia a execução
-↓
-Sistema cria e processa a solicitação
-↓
-A solicitação pode disparar uma ou mais automações do mesmo tipo
-↓
-Sistema processa todos os processos relacionados à solicitação
-↓
-Após a finalização de todos os processos, sistema gera o resultado da solicitação
-↓
-Sistema apresenta o resultado
-↓
-Usuário realiza o download do arquivo gerado, normalmente uma planilha
+1. After login, the user is directed to the LegalByte Dashboard.
+2. The Dashboard displays a greeting and the tools available to that user.
+3. Each automation is represented by a name, short description, and icon.
+4. The user selects an automation.
+5. The platform opens the page for that automation.
 
 ---
 
-## Fluxo 4 - Acompanhar e Finalizar uma Solicitação
+## Flow 3 — Submit a Request
 
-### Objetivo
+### Goal
 
-Permitir que o usuário acompanhe o processamento de uma solicitação, visualize o resultado de cada Task e obtenha o resultado final da solicitação.
+Submit a Request through a LegalByte tool.
 
-### Fluxo
+### Flow
 
-Usuário inicia uma solicitação após o preenchimento e validação dos inputs
-↓
-Sistema direciona o usuário para uma nova página de acompanhamento da solicitação
-↓
-Sistema apresenta a lista de Tasks relacionadas à solicitação
-↓
-Cada Task apresenta seu status de processamento
-↓
-Sistema atualiza os status conforme as Tasks são processadas
-↓
-Para cada Task concluída com sucesso:
-
-- Sistema informa que o processamento foi concluído.
-- Sistema registra o resultado correspondente.
-  Para cada Task que falhar:
-- Sistema informa que o processamento falhou.
-- Sistema apresenta o respectivo motivo da falha.
-  ↓
-  Sistema aguarda a finalização de todas as Tasks
-  ↓
-  Todas as Tasks concluídas
-  ↓
-  Sistema apresenta o resultado consolidado da solicitação
-  ↓
-  Sistema gera um relatório contendo os resultados das Tasks, relacionando:
-- Tasks concluídas com sucesso
-- Tasks que falharam
-- Motivo da falha de cada Task
-  ↓
-  Usuário realiza o download do relatório gerado, normalmente uma planilha.
-
-### Observação
-
-O conteúdo específico do resultado pode variar de acordo com a ferramenta utilizada.
-Independentemente da ferramenta, toda solicitação deve permitir identificar:
-
-- O que foi processado.
-- O que foi concluído com sucesso.
-- O que falhou.
-- O motivo de cada falha.
+1. The user selects a tool from the Dashboard.
+2. The platform opens a page containing:
+   - The tool name and purpose.
+   - A description of the expected result.
+   - Instructions for using the tool.
+   - Required inputs and tool-specific options.
+   - A field for uploading one or more files.
+   - A button for submitting the Request.
+3. The user follows the instructions, selects the options, and uploads the
+   required files.
+4. Before processing, the platform validates:
+   - Required fields and options.
+   - Required files and file count limits.
+   - Supported file formats and tool-specific file requirements.
+   - Parameter validity and compatibility.
+   - The user's permission to use the tool.
+5. Valid data starts the Request. Invalid data produces clear validation
+   errors and prevents processing.
+6. The platform creates and processes the Request.
+7. The Request may trigger one or more Automations of the same type.
+8. When processing finishes, the platform presents the result.
+9. The user downloads the generated file, usually a spreadsheet.
 
 ---
 
-# Fluxo 4 - Logout
+## Flow 4 — Track and Complete a Request
 
-Usuário seleciona "Sair"
-↓
-Sistema encerra a sessão
-↓
-Usuário retorna para a tela de login
+### Goal
+
+Allow the user to track Request processing, inspect each Task result, and
+obtain the final Request result.
+
+### Flow
+
+1. After input validation, the platform directs the user to the Request
+   tracking page.
+2. The page lists all related Tasks and their current statuses.
+3. Task statuses are updated as processing progresses.
+4. Each successful Task records and displays its result.
+5. Each failed Task displays the reason for its failure.
+6. After all Tasks finish, the platform consolidates the Request result.
+7. The platform generates a report listing successful Tasks, failed Tasks, and
+   failure reasons.
+8. The user downloads the generated report, usually a spreadsheet.
+
+### Note
+
+Result content may vary by tool. Regardless of the tool, every Request must
+identify what was processed, what succeeded, what failed, and why it failed.
 
 ---
 
-# Fluxo padrão das automações
+## Flow 5 — Logout
 
-Independentemente da funcionalidade, toda automação seguirá o mesmo padrão de utilização.
-
-Entrada
-↓
-Configuração
-↓
-Execução
-↓
-Resultado
-
-Este fluxo deve permanecer consistente para proporcionar uma experiência uniforme ao usuário.
+1. The user selects **Log out**.
+2. The platform ends the session.
+3. The user returns to the login page.
 
 ---
 
-# MVP
+## Standard automation flow
 
-No MVP existirá apenas uma automação disponível:
+Every automation follows the same interaction pattern:
 
-- Filtro de Publicações Irrelevantes
+```text
+Input
+  ↓
+Configuration
+  ↓
+Execution
+  ↓
+Result
+```
 
-As demais automações serão adicionadas gradualmente, reutilizando o mesmo fluxo de navegação.
+This flow must remain consistent to provide a uniform user experience.
+
+---
+
+## MVP
+
+The MVP provides one automation:
+
+- Irrelevant Publication Filtering
+
+Other automations will be added incrementally and will reuse the same
+navigation flow.

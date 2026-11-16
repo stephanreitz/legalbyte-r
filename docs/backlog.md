@@ -1,23 +1,23 @@
-MVP
+# Product Backlog
 
-[x] Login
-[ ] Dashboard
-[ ] Listagem de automações
-[x] Filtro de Publicações
-[x] Upload de arquivo
-[x] Download do resultado
-[ ] Histórico de solicitações
+## MVP
 
-v1.1
+- [x] Login
+- [ ] Dashboard
+- [ ] Automation listing
+- [x] Publication filtering
+- [x] File upload
+- [x] Result download
+- [ ] Request history
 
-[ ] Protocolos Automatizados
+## v1.1
 
-v1.2
+- [ ] Automated court filings
 
-[ ] Busca em documentos
+## v1.2
 
-v1.3
+- [ ] Document search
 
-[ ] Relatórios
+## v1.3
 
-...
+- [ ] Reports

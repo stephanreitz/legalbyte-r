@@ -1,4 +1,4 @@
-# LegalByte Resurrection
+# LegalByte
 
 LegalByte is a legal automation platform designed to reduce repetitive and
 operational work in law firms through automation and data processing.
@@ -7,9 +7,9 @@ operational work in law firms through automation and data processing.
 
 🚧 This project is under active development.
 
-The project is being rebuilt from scratch as a practical software engineering
-project, with the goal of evolving a real legal automation product while
-applying professional software engineering practices.
+The project is being developed as a practical software engineering project,
+with the goal of evolving a real legal automation product while applying
+professional software engineering practices.
 
 ## Purpose
 
@@ -73,15 +73,31 @@ See [`AGENTS.md`](AGENTS.md) for the project's engineering principles and
 [`development-conventions.md`](docs/development-conventions.md) for development
 conventions.
 
+## Code Ownership
+
+This repository contains an original implementation developed for educational
+and portfolio purposes. It does not include proprietary source code,
+confidential information, or client data.
+
 ## Documentation
 
-- [`vision.md`](docs/vision.md) — Product vision.
-- [`domain.md`](docs/domain.md) — Domain language and model.
-- [`user-flows.md`](docs/user-flows.md) — User flows.
-- [`backlog.md`](docs/backlog.md) — Product backlog.
-- [`AGENTS.md`](AGENTS.md) — Engineering principles and project instructions.
-- [`development-conventions.md`](docs/development-conventions.md) — Development conventions.
-- [`ADR-001.md`](docs/ADR-001.md) — Architectural decision records.
+Public project documentation is stored in [`docs/`](docs/):
+
+- [`vision.md`](docs/vision.md) — Describes the product purpose, target
+  audience, problem, value proposition, MVP, and long-term vision.
+- [`domain.md`](docs/domain.md) — Defines the shared domain language, core
+  concepts, and main business workflow.
+- [`user-flows.md`](docs/user-flows.md) — Describes how users interact with the
+  platform, from authentication to Request completion.
+- [`backlog.md`](docs/backlog.md) — Lists delivered and planned product
+  capabilities by version.
+- [`development-conventions.md`](docs/development-conventions.md) — Records the
+  coding, documentation, and testing conventions used by the project.
+- [`ADR-001.md`](docs/ADR-001.md) — Records the architectural decision to center
+  the domain on Requests.
+
+The repository also includes [`AGENTS.md`](AGENTS.md), which defines the
+engineering principles and instructions followed during development.
 
 ## Development
 
@@ -91,4 +107,4 @@ Each Sprint introduces or applies software engineering practices while
 delivering meaningful product functionality.
 
 The current development plan is managed through the
-[LegalByte Resurrection GitHub Project](https://github.com/stephanreitz/legalbyte-r).
+[LegalByte GitHub Project](https://github.com/stephanreitz/legalbyte-r).

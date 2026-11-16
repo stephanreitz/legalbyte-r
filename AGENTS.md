@@ -94,6 +94,13 @@ New functionality should be developed with automated tests whenever appropriate.
 
 Tests should provide meaningful protection against regressions without introducing unnecessary complexity.
 
+Each TDD cycle must be recorded in two commits:
+
+1. **Red** — add only the test that expresses the next behavior, run it, confirm that it fails for the expected reason, and commit the failing test.
+2. **Green** — add the smallest implementation that makes the test pass, run the focused and full test suites, and commit the implementation.
+
+The agent must explicitly remind and guide the user before each Red and Green commit.
+
 ## Documentation
 
 Documentation should describe decisions, behavior, and conventions that are relevant to the project.
@@ -108,6 +115,7 @@ Important project documentation includes:
 - `docs/domain.md` — domain language and model.
 - `docs/user-flows.md` — user flows.
 - `docs/backlog.md` — product backlog.
+- `docs/ignore/todo.md` — private reminders noticed during the work.
 - `docs/ADR-*.md` — architectural decisions.
 
 ## Development Approach
@@ -116,7 +124,7 @@ The project is developed incrementally.
 
 Each Sprint should deliver meaningful progress toward the product while introducing or applying engineering practices that are relevant to the current stage of development.
 
-When a Sprint is completed, update `docs/fases-e-sprints.md` and answer its interview question based on what was learned and implemented.
+When a Sprint is completed, update `docs/ignore/fases-e-sprints.md` and answer its interview question based on what was learned and implemented.
 
 Avoid implementing functionality or infrastructure before it is needed.
 

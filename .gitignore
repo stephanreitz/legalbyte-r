@@ -17,5 +17,5 @@ media/
 !.env.example
 SENHAS*
 
-# Directorys
-/publicacoes_irrelevantes/
+# Private documentation
+/docs/ignore/

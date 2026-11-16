@@ -1,75 +1,81 @@
 # Vision
 
-## Propósito
+## Purpose
 
-A LegalByte é uma plataforma de automação jurídica voltada para escritórios de advocacia.
+LegalByte is a legal automation platform for law firms.
 
-Seu objetivo é reduzir o tempo gasto em tarefas operacionais e repetitivas, permitindo que advogados e estagiários concentrem seus esforços em atividades que exigem análise jurídica.
-
----
-
-## Público-alvo
-
-### Clientes
-
-- Escritórios de advocacia.
-
-### Usuários
-
-- Advogados.
-- Estagiários.
+Its purpose is to reduce time spent on repetitive operational tasks, allowing
+lawyers and interns to focus on work that requires legal analysis.
 
 ---
 
-## Problema
+## Target audience
 
-Escritórios de advocacia investem diariamente muitas horas em atividades repetitivas e operacionais, que seguem regras bem definidas e podem ser automatizadas.
+### Customers
 
-Essas tarefas consomem tempo, aumentam a chance de erros humanos e reduzem a produtividade da equipe.
+- Law firms.
+
+### Users
+
+- Lawyers.
+- Interns.
 
 ---
 
-## Proposta de valor
+## Problem
 
-A LegalByte busca:
+Law firms spend many hours each day on repetitive operational activities that
+follow well-defined rules and can be automated.
 
-- reduzir trabalho operacional;
-- reduzir erros humanos;
-- aumentar produtividade;
-- padronizar processos;
-- permitir que profissionais dediquem mais tempo à atividade intelectual.
+These tasks consume time, increase the risk of human error, and reduce team
+productivity.
+
+---
+
+## Value proposition
+
+LegalByte aims to:
+
+- Reduce operational work.
+- Reduce human error.
+- Increase productivity.
+- Standardize processes.
+- Allow legal professionals to spend more time on intellectual work.
 
 ---
 
 ## MVP
 
-O MVP da nova plataforma consiste na implementação da automação **Filtro de Publicações Irrelevantes**, já utilizada em produção por um cliente.
+The platform's MVP implements the **Irrelevant Publication Filtering**
+automation.
 
-Essa funcionalidade permitirá:
+This feature provides:
 
-- autenticação de usuários;
-- envio de uma planilha;
-- processamento dos dados;
-- geração de uma nova planilha;
-- download do resultado.
-
----
-
-## Visão de longo prazo
-
-A LegalByte será uma plataforma composta por diversos módulos independentes, cada um responsável por automatizar uma atividade recorrente do fluxo jurídico.
-
-Exemplos:
-
-- Filtro de Publicações Irrelevantes
-- Protocolos Automatizados
-- Análise de Planilhas
-- Busca Inteligente em Documentos
-- Relatórios
-- Integrações com sistemas jurídicos
+- User authentication.
+- Spreadsheet upload.
+- Data processing.
+- Generation of a result spreadsheet.
+- Result download.
 
 ---
 
-## Princípio do produto
+## Long-term vision
 
-Toda nova funcionalidade deve automatizar ou simplificar uma atividade recorrente do fluxo jurídico.
+LegalByte will be composed of independent modules, each responsible for
+automating a recurring activity in a legal workflow.
+
+Examples:
+
+- Irrelevant Publication Filtering
+- Automated Court Filings
+- Spreadsheet Analysis
+- Intelligent Document Search
+- Reports
+- Legal system integrations
+
+---
+
+## Product principle
+
+Every new feature must automate or simplify a recurring activity in a legal
+workflow.
