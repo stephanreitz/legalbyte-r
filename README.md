@@ -99,6 +99,10 @@ Public project documentation is stored in [`docs/`](docs/):
 The repository also includes [`AGENTS.md`](AGENTS.md), which defines the
 engineering principles and instructions followed during development.
 
+## License
+
+Copyright (c) 2026 Stephan Reitz. All rights reserved.
+
 ## Development
 
 The project is being developed incrementally through Sprints.
