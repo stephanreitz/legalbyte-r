@@ -108,3 +108,42 @@ def test_cleanup_removes_expired_files_but_keeps_request_metadata(settings, tmp_
     )
 
     assert response.status_code == 404
+
+@pytest.mark.django_db
+def test_cleanup_handles_request_without_output_file(settings, tmp_path):
+
+    # Isolate files from the project's real media directory.
+    settings.MEDIA_ROOT = tmp_path
+
+    # Create a user in the isolated test database.
+    user = User.objects.create_user(
+        email="user@example.com",
+        password="secret123",
+    )
+
+    # Create a Request with an input file but no generated output.
+    publication_request = Request.objects.create(
+        user=user,
+        input_file=SimpleUploadedFile(
+            "input-only.xlsx",
+            b"input-content",
+        ),
+    )
+
+    # Make the Request older than the retention period.
+    Request.objects.filter(id=publication_request.id).update(
+        created_at=timezone.now() - timedelta(days=4)
+    )
+    publication_request.refresh_from_db()
+
+    input_name = publication_request.input_file.name
+
+    call_command("cleanup_expired_request_files")
+    publication_request.refresh_from_db()
+
+    # The record and its empty output path must remain valid.
+    assert Request.objects.filter(id=publication_request.id).exists()
+    assert publication_request.output_file.name == ""
+
+    # The existing input file must still be removed.
+    assert not publication_request.input_file.storage.exists(input_name)
