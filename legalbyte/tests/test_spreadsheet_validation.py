@@ -109,3 +109,26 @@ def test_rejects_spreadsheet_without_publication_column(settings, tmp_path):
     )
     assert response.status_code == 400
     assert Request.objects.count() == 0
+
+
+@pytest.mark.django_db
+def test_rejects_request_without_required_processing_fields():
+    client = create_authenticated_client()
+
+    response = client.post(
+        "/api/requests/",
+        {},
+        format="multipart",
+    )
+
+    assert response.status_code == 400
+
+    # The response must identify every required field.
+    assert set(response.data) == {
+        "input_file",
+        "criteria",
+        "sheet_name",
+    }
+
+    # Invalid input must not create a Request.
+    assert Request.objects.count() == 0
