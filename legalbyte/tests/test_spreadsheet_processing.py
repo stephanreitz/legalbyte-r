@@ -85,3 +85,46 @@ def test_processes_treated_sheet_and_adds_analysis_columns():
         "Desconsiderar publicação",
         "Pregão eletrônico",
     )
+
+def test_marks_row_without_publication_as_ok():
+    # Create a workbook with a row whose publication is empty.
+    input_workbook = Workbook()
+    input_sheet = input_workbook.active
+    input_sheet.title = "PUBLICAÇÕES"
+
+    input_sheet.append([
+        "Nº do Processo",
+        "Publicação",
+    ])
+
+    input_sheet.append([
+        "0001",
+        None,
+    ])
+
+    input_file = BytesIO()
+    input_workbook.save(input_file)
+    input_file.seek(0)
+    input_workbook.close()
+
+    output_file = process_publications_spreadsheet(
+        input_file,
+        criteria=["Licitação"],
+        sheet_name="PUBLICAÇÕES",
+    )
+
+    output_workbook = load_workbook(output_file)
+    output_sheet = output_workbook.active
+    rows = list(output_sheet.iter_rows(values_only=True))
+
+    # The row must remain and be classified as relevant.
+    assert rows[1] == (
+        "0001",
+        None,
+        "OK",
+        None,
+    )
+
+    output_workbook.close()
+    output_file.close()
+    input_file.close()
