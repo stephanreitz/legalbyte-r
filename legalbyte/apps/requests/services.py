@@ -133,11 +133,16 @@ def process_publications_spreadsheet(input_file, criteria, sheet_name):
         
         publication = row[publication_index]
 
-        # Apply the business rule to the publication text.
-        matched_criterion = find_exclusion_criterion(
-            publication,
-            criteria,
-        )
+
+        # An empty publication has no exclusion criterion and remains relevant.
+        if publication is None:
+            matched_criterion = None
+        else:
+            # Apply the business rule to the publication text.
+            matched_criterion = find_exclusion_criterion(
+                publication,
+                criteria,
+            )
 
         # A matching criterion means that the publication is irrelevant.
         if matched_criterion is not None:
