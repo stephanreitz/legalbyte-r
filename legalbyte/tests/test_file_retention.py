@@ -104,7 +104,7 @@ def test_cleanup_removes_expired_files_but_keeps_request_metadata(settings, tmp_
     client.force_authenticate(user=user)
 
     response = client.get(
-        f"/api/resquests/{expired_request.id}/download"
+        f"/api/requests/{expired_request.id}/download/"
     )
 
     assert response.status_code == 404
