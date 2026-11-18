@@ -124,7 +124,19 @@ The project is developed incrementally.
 
 Each Sprint should deliver meaningful progress toward the product while introducing or applying engineering practices that are relevant to the current stage of development.
 
-When a Sprint is completed, update `docs/ignore/fases-e-sprints.md` and answer its interview question based on what was learned and implemented.
+Each Sprint must be developed on its own Git branch and delivered through a Pull Request to `main`.
+
+Before opening the Pull Request:
+
+1. Run the focused and full test suites.
+2. Review and relocate the pending items from `docs/ignore/todo.md`.
+3. Update `docs/ignore/fases-e-sprints.md`.
+4. Answer the Sprint interview question based on what was learned.
+5. Review the CV and LinkedIn keywords, keeping only technologies that were actually used.
+
+The Sprint is complete only after its Pull Request passes the required checks and is merged.
+
+The agent must explicitly remind and guide the user through the final Sprint commit, push, Pull Request, and merge.
 
 Avoid implementing functionality or infrastructure before it is needed.
 
